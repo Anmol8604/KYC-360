@@ -33,21 +33,18 @@ public class Controller {
         return nameRepo.findById(id);
     }
 
+    @DeleteMapping("/delName/{id}")
+    public void delSingleName(@PathVariable("id") int id){
+        nameRepo.deleteById(id);
+    }
+    @DeleteMapping("/delName")
+    public void delName(){
+        nameRepo.deleteAll();
+    }
     @PostMapping("/addName")
     public void addName(@RequestBody Name name){
         nameRepo.save(new Name(name.getId(), name.getFirst(), name.getMiddle(), name.getLast()));
     }
-
-//    @PutMapping("/addName/{id}")
-//    public void updateName(@PathVariable("id") int id, @RequestBody Name name){
-//        Name a = nameRepo.getReferenceById(id);
-//        a.setId(name.getId());
-//        a.setFirst(name.getFirst());
-//        a.setMiddle(name.getMiddle());
-//        a.setLast(name.getLast());
-//        nameRepo.deleteById(id);
-//        nameRepo.save(a);
-//    }
 
     @GetMapping("/getAddress's")
     public List<Address> getAddress(){
@@ -57,6 +54,15 @@ public class Controller {
     @GetMapping("getAddress/{id}")
     public Optional<Address> getSingleAdd(@PathVariable("id") int id){
         return addressRepo.findById(id);
+    }
+
+    @DeleteMapping("/delAddress/{id}")
+    public void delSingleAddress(@PathVariable("id") int id){
+        addressRepo.deleteById(id);
+    }
+    @DeleteMapping("/delAddress")
+    public void delAddress(){
+        addressRepo.deleteAll();
     }
 
     @PostMapping("/addAddress")
@@ -73,28 +79,21 @@ public class Controller {
     public Optional<Entity> getSingleEntity(@PathVariable("id") int id){
         return entityRepo.findById(id);
     }
+
+    @DeleteMapping("/delEntity/{id}")
+    public void delSingleEntity(@PathVariable("id") int id){
+        entityRepo.deleteById(id);
+    }
+
+    @DeleteMapping("/delEntity")
+    public void delEntity(){
+        entityRepo.deleteAll();
+    }
+
     @PostMapping("/addEntity")
     public void addEntity(@RequestBody Entity entity){
         entityRepo.save(new Entity(entity.getId(), entity.getGender(), entity.isDeceased(), entity.getFirst(), entity.getMiddle(), entity.getLast(), entity.getAddress(), entity.getCity(), entity.getCountry()));
         nameRepo.save(new Name(entity.getId(), entity.getFirst(), entity.getMiddle(), entity.getLast()));
         addressRepo.save(new Address(entity.getId(), entity.getAddress(), entity.getCity(), entity.getCountry()));
     }
-
-//    @GetMapping("/getAddress/{id}")
-//    public Optional<Address> getAddress(@PathVariable("id") long id){
-//        return addressRepo.findById((int) id);
-//    }
-
-
-//    @PostMapping("/postNames")
-//    public void addName(@RequestBody Name name){
-//        nameRepo.save(new Name(name.getName_id(), name.getFirst(), name.getMiddle(), name.getLast()));
-//    }
-//
-//    @DeleteMapping("/delName/{id}")
-//    public void delName(@PathVariable("id") long id){
-//        nameRepo.deleteById((int) id);
-//    }
-
-
 }
